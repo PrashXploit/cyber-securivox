@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberCoach Chatbot - Cyber Securivox</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="text-2xl font-bold text-teal-600">
+                            <i class="fas fa-shield-alt mr-2"></i>Cyber Securivox
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="tracker.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Habit Tracker</a>
+                        <a href="link-checker.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Link Checker</a>
+                        <a href="password-tester.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Password Test</a>
+                        <a href="chatbot.html" class="text-teal-600 hover:text-teal-800 px-3 py-2 rounded-md text-sm font-medium">CyberCoach</a>
+                        <a href="learn.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Learn</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-teal-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="tracker.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Habit Tracker</a>
+                <a href="link-checker.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Link Checker</a>
+                <a href="password-tester.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Password Test</a>
+                <a href="chatbot.html" class="text-teal-600 block px-3 py-2 rounded-md text-base font-medium">CyberCoach</a>
+                <a href="learn.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Learn</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Header Section -->
+        <div class="text-center mb-8">
+            <i class="fas fa-robot text-5xl text-green-600 mb-4"></i>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">CyberCoach</h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Your personal cybersecurity assistant. Ask questions about digital safety, phishing, passwords, and more!
+            </p>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
+            <!-- Chat Header -->
+            <div class="bg-gradient-to-r from-green-600 to-teal-600 text-white p-4">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-robot text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">CyberCoach</h3>
+                        <p class="text-sm opacity-90">Online • Ready to help</p>
+                    </div>
+                    <div class="ml-auto">
+                        <button id="clear-chat" class="text-white hover:text-gray-200 transition duration-200">
+                            <i class="fas fa-trash text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="chat-container custom-scrollbar p-4 space-y-4 h-96 overflow-y-auto">
+                <!-- Welcome message will be added here -->
+            </div>
+
+            <!-- Chat Input -->
+            <div class="border-t p-4">
+                <div class="flex space-x-3">
+                    <input
+                        type="text"
+                        id="chat-input"
+                        placeholder="Ask me about cybersecurity..."
+                        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200"
+                    >
+                    <button
+                        id="send-message"
+                        class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold transition duration-300 flex items-center"
+                    >
+                        <i class="fas fa-paper-plane mr-2"></i>Send
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Questions -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-question-circle text-green-600 mr-2"></i>
+                Quick Questions
+            </h3>
+            <div class="grid md:grid-cols-2 gap-3">
+                <button class="quick-question text-left p-3 border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition duration-200"
+                        data-question="How can I identify phishing emails?">
+                    <i class="fas fa-envelope text-green-600 mr-2"></i>
+                    How can I identify phishing emails?
+                </button>
+                <button class="quick-question text-left p-3 border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition duration-200"
+                        data-question="What makes a password strong?">
+                    <i class="fas fa-key text-green-600 mr-2"></i>
+                    What makes a password strong?
+                </button>
+                <button class="quick-question text-left p-3 border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition duration-200"
+                        data-question="How do I secure my WiFi network?">
+                    <i class="fas fa-wifi text-green-600 mr-2"></i>
+                    How do I secure my WiFi network?
+                </button>
+                <button class="quick-question text-left p-3 border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition duration-200"
+                        data-question="What is two-factor authentication?">
+                    <i class="fas fa-shield-alt text-green-600 mr-2"></i>
+                    What is two-factor authentication?
+                </button>
+                <button class="quick-question text-left p-3 border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition duration-200"
+                        data-question="How can I protect my social media accounts?">
+                    <i class="fas fa-users text-green-600 mr-2"></i>
+                    How can I protect my social media accounts?
+                </button>
+                <button class="quick-question text-left p-3 border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition duration-200"
+                        data-question="What should I do if I think I've been hacked?">
+                    <i class="fas fa-exclamation-triangle text-green-600 mr-2"></i>
+                    What should I do if I think I've been hacked?
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Features -->
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                <i class="fas fa-clock text-3xl text-green-600 mb-3"></i>
+                <h4 class="font-semibold text-gray-800 mb-2">24/7 Available</h4>
+                <p class="text-sm text-gray-600">Get instant answers to your cybersecurity questions anytime</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                <i class="fas fa-brain text-3xl text-green-600 mb-3"></i>
+                <h4 class="font-semibold text-gray-800 mb-2">Expert Knowledge</h4>
+                <p class="text-sm text-gray-600">Trained on the latest cybersecurity best practices and threats</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                <i class="fas fa-user-shield text-3xl text-green-600 mb-3"></i>
+                <h4 class="font-semibold text-gray-800 mb-2">Privacy Focused</h4>
+                <p class="text-sm text-gray-600">Your conversations are private and not stored on our servers</p>
+            </div>
+        </div>
+
+        <!-- Security Tips -->
+        <div class="bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-xl shadow-lg p-8">
+            <h3 class="text-2xl font-bold mb-6">
+                <i class="fas fa-lightbulb mr-2"></i>
+                Daily Security Reminders
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold mb-3">🔒 Today's Focus:</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>• Check for software updates</li>
+                        <li>• Review recent login activity</li>
+                        <li>• Verify backup status</li>
+                        <li>• Clear browser cache and cookies</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3">🚨 Current Threats:</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>• Fake delivery notification emails</li>
+                        <li>• Social media account takeovers</li>
+                        <li>• Cryptocurrency scam messages</li>
+                        <li>• Fake tech support calls</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 px-4 mt-16">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-teal-400 mb-4">
+                    <i class="fas fa-shield-alt mr-2"></i>Cyber Securivox
+                </h3>
+                <p class="text-gray-300 max-w-2xl mx-auto">
+                    Building a safer digital world, one habit at a time. Stay protected, stay informed, stay secure.
+                </p>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8">
+                <p class="text-gray-400">
+                    © 2024 Cyber Securivox. Built for digital safety education and awareness.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

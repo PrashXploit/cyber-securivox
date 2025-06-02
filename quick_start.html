@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Securivox - Quick Start</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #00f5ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .option {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .option-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        
+        .option-desc {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 15px;
+            color: #00f5ff;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🛡️</div>
+        <h1>Cyber Securivox</h1>
+        <p class="subtitle">Choose how to run your cybersecurity platform</p>
+        
+        <div class="options">
+            <a href="index.html" class="option">
+                <div class="option-title">🚀 Open Directly (Limited Features)</div>
+                <div class="option-desc">Click to open the main website directly in browser</div>
+            </a>
+            
+            <div class="option" onclick="showInstructions('python')">
+                <div class="option-title">🐍 Python Server (Recommended)</div>
+                <div class="option-desc">Full features with Python HTTP server</div>
+            </div>
+            
+            <div class="option" onclick="showInstructions('node')">
+                <div class="option-title">📦 Node.js Server</div>
+                <div class="option-desc">Alternative server using Node.js</div>
+            </div>
+            
+            <div class="option" onclick="showInstructions('vscode')">
+                <div class="option-title">💻 VS Code Terminal</div>
+                <div class="option-desc">Run directly in VS Code terminal</div>
+            </div>
+        </div>
+        
+        <div id="instructions" class="instructions" style="display: none;">
+            <h3>📋 Instructions:</h3>
+            <ol id="instruction-list">
+                <!-- Instructions will be populated by JavaScript -->
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function showInstructions(type) {
+            const instructions = document.getElementById('instructions');
+            const list = document.getElementById('instruction-list');
+            
+            let steps = [];
+            
+            switch(type) {
+                case 'python':
+                    steps = [
+                        'Open VS Code terminal (Terminal → New Terminal)',
+                        'Type: <span class="code">python run_server.py</span>',
+                        'Press Enter and wait for browser to open',
+                        'Or manually go to: <span class="code">http://localhost:8000</span>'
+                    ];
+                    break;
+                    
+                case 'node':
+                    steps = [
+                        'Make sure Node.js is installed on your system',
+                        'Open VS Code terminal (Terminal → New Terminal)',
+                        'Type: <span class="code">node run_server.js</span>',
+                        'Press Enter and wait for browser to open',
+                        'Or manually go to: <span class="code">http://localhost:3000</span>'
+                    ];
+                    break;
+                    
+                case 'vscode':
+                    steps = [
+                        'Open VS Code terminal (Terminal → New Terminal)',
+                        'Type one of these commands:',
+                        '• <span class="code">python -m http.server 8000</span> (Python)',
+                        '• <span class="code">npx http-server -p 3000</span> (Node.js)',
+                        'Open browser to the displayed URL',
+                        'Press Ctrl+C to stop the server'
+                    ];
+                    break;
+            }
+            
+            list.innerHTML = steps.map(step => `<li>${step}</li>`).join('');
+            instructions.style.display = 'block';
+            instructions.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

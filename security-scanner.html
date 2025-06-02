@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Scanner - Cyber Securivox</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="text-2xl font-bold text-teal-600">
+                            <i class="fas fa-shield-alt mr-2"></i>Cyber Securivox
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="tracker.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Habit Tracker</a>
+                        <a href="link-checker.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Link Checker</a>
+                        <a href="password-tester.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Password Test</a>
+                        <a href="chatbot.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">CyberCoach</a>
+                        <a href="learn.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Learn</a>
+                        <a href="security-scanner.html" class="text-teal-600 hover:text-teal-800 px-3 py-2 rounded-md text-sm font-medium">Scanner</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-teal-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="tracker.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Habit Tracker</a>
+                <a href="link-checker.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Link Checker</a>
+                <a href="password-tester.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Password Test</a>
+                <a href="chatbot.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">CyberCoach</a>
+                <a href="learn.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Learn</a>
+                <a href="security-scanner.html" class="text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Scanner</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <i class="fas fa-search text-5xl text-red-600 mb-4"></i>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Security Scanner</h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Comprehensive security assessment of your digital environment. Check browser security, system vulnerabilities, and more.
+            </p>
+        </div>
+
+        <!-- Quick Scan -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-bolt text-red-600 mr-3"></i>
+                    Quick Security Scan
+                </h2>
+                <p class="text-gray-600">Run a comprehensive scan of your browser and system security</p>
+            </div>
+
+            <div class="text-center">
+                <button id="start-scan" class="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition duration-300 transform hover:scale-105">
+                    <i class="fas fa-play mr-2"></i>Start Security Scan
+                </button>
+            </div>
+        </div>
+
+        <!-- Scan Results -->
+        <div id="scan-results" class="hidden space-y-6">
+            <!-- Overall Score -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-chart-pie text-red-600 mr-2"></i>
+                    Security Score
+                </h3>
+                <div class="flex items-center justify-center mb-6">
+                    <div class="relative w-32 h-32">
+                        <svg class="progress-ring w-32 h-32" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="50" stroke="#E5E7EB" stroke-width="8" fill="none"/>
+                            <circle id="security-score-circle" cx="60" cy="60" r="50" stroke="#EF4444" stroke-width="8"
+                                    fill="none" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center">
+                                <div id="security-score-text" class="text-3xl font-bold text-red-600">0%</div>
+                                <div class="text-sm text-gray-500">Secure</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="score-description" class="text-center text-gray-600"></div>
+            </div>
+
+            <!-- Detailed Results -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Browser Security -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">
+                        <i class="fas fa-globe text-blue-600 mr-2"></i>
+                        Browser Security
+                    </h4>
+                    <div id="browser-results" class="space-y-3">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+
+                <!-- System Security -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">
+                        <i class="fas fa-desktop text-green-600 mr-2"></i>
+                        System Security
+                    </h4>
+                    <div id="system-results" class="space-y-3">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Network Security -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">
+                        <i class="fas fa-wifi text-purple-600 mr-2"></i>
+                        Network Security
+                    </h4>
+                    <div id="network-results" class="space-y-3">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Privacy Settings -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">
+                        <i class="fas fa-user-shield text-orange-600 mr-2"></i>
+                        Privacy Settings
+                    </h4>
+                    <div id="privacy-results" class="space-y-3">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                    Security Recommendations
+                </h3>
+                <div id="recommendations" class="space-y-4">
+                    <!-- Recommendations will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Manual Checks -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-clipboard-check text-indigo-600 mr-2"></i>
+                Manual Security Checks
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <h4 class="font-semibold text-gray-800">Browser & Software</h4>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-3 text-teal-600">
+                            <span class="text-sm">Browser is up to date</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-3 text-teal-600">
+                            <span class="text-sm">Operating system is updated</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-3 text-teal-600">
+                            <span class="text-sm">Antivirus software is active</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-3 text-teal-600">
+                            <span class="text-sm">Firewall is enabled</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="font-semibold text-gray-800">Account Security</h4>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-3 text-teal-600">
+                            <span class="text-sm">Using strong, unique passwords</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-3 text-teal-600">
+                            <span class="text-sm">Two-factor authentication enabled</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-3 text-teal-600">
+                            <span class="text-sm">Regular backup of important data</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-3 text-teal-600">
+                            <span class="text-sm">Privacy settings configured</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Tools -->
+        <div class="bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl shadow-lg p-8">
+            <h3 class="text-2xl font-bold mb-6">
+                <i class="fas fa-tools mr-2"></i>
+                Recommended Security Tools
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold mb-3">🛡️ Essential Tools:</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>• Password Manager (Bitwarden, 1Password)</li>
+                        <li>• Antivirus Software (Windows Defender, Malwarebytes)</li>
+                        <li>• VPN Service (NordVPN, ExpressVPN)</li>
+                        <li>• Browser Extensions (uBlock Origin, Privacy Badger)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3">🔧 Advanced Tools:</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>• Network Scanner (Nmap, Advanced IP Scanner)</li>
+                        <li>• Encryption Tools (VeraCrypt, 7-Zip)</li>
+                        <li>• Secure Communication (Signal, ProtonMail)</li>
+                        <li>• System Monitoring (Process Monitor, Wireshark)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 px-4 mt-16">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-teal-400 mb-4">
+                    <i class="fas fa-shield-alt mr-2"></i>Cyber Securivox
+                </h3>
+                <p class="text-gray-300 max-w-2xl mx-auto">
+                    Building a safer digital world, one habit at a time. Stay protected, stay informed, stay secure.
+                </p>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8">
+                <p class="text-gray-400">
+                    © 2024 Cyber Securivox. Built for digital safety education and awareness.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/security-scanner.js"></script>
+</body>
+</html>

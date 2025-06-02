@@ -1,0 +1,293 @@
+/* CyberNest Custom Styles */
+
+/* Custom color variables */
+:root {
+    --primary-teal: #14B8A6;
+    --primary-navy: #1E3A8A;
+    --primary-sky: #0EA5E9;
+    --secondary-purple: #8B5CF6;
+    --secondary-green: #10B981;
+    --accent-orange: #F59E0B;
+    --neutral-gray: #6B7280;
+    --light-gray: #F9FAFB;
+}
+
+/* Global styles */
+* {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Utility classes */
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+.spin-animation {
+    animation: spin 1s linear infinite;
+}
+
+/* Custom gradient backgrounds */
+.gradient-teal {
+    background: linear-gradient(135deg, #14B8A6 0%, #0891B2 100%);
+}
+
+.gradient-blue {
+    background: linear-gradient(135deg, #0EA5E9 0%, #1E3A8A 100%);
+}
+
+.gradient-purple {
+    background: linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%);
+}
+
+.gradient-green {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
+
+/* Progress ring styles */
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle {
+    transition: stroke-dasharray 0.35s;
+    transform-origin: 50% 50%;
+}
+
+/* Custom card hover effects */
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Custom button styles */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-sky) 100%);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(20, 184, 166, 0.3);
+}
+
+.btn-secondary {
+    border: 2px solid var(--primary-teal);
+    color: var(--primary-teal);
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--primary-teal);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Password strength indicator */
+.password-strength-weak {
+    background: linear-gradient(90deg, #EF4444 0%, #F87171 100%);
+}
+
+.password-strength-medium {
+    background: linear-gradient(90deg, #F59E0B 0%, #FBBF24 100%);
+}
+
+.password-strength-strong {
+    background: linear-gradient(90deg, #10B981 0%, #34D399 100%);
+}
+
+/* Chatbot styles */
+.chat-container {
+    max-height: 500px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.chat-bubble-user {
+    background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-sky) 100%);
+    color: white;
+    border-radius: 18px 18px 4px 18px;
+}
+
+.chat-bubble-bot {
+    background: #F3F4F6;
+    color: #374151;
+    border-radius: 18px 18px 18px 4px;
+}
+
+/* Link checker styles */
+.link-safe {
+    border-left: 4px solid #10B981;
+    background: #ECFDF5;
+}
+
+.link-warning {
+    border-left: 4px solid #F59E0B;
+    background: #FFFBEB;
+}
+
+.link-danger {
+    border-left: 4px solid #EF4444;
+    background: #FEF2F2;
+}
+
+/* Habit tracker styles */
+.habit-item {
+    transition: all 0.3s ease;
+}
+
+.habit-item:hover {
+    background: #F0F9FF;
+    transform: translateX(4px);
+}
+
+.habit-completed {
+    background: #ECFDF5;
+    border-left: 4px solid #10B981;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #F1F5F9;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--primary-teal);
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #0891B2;
+}
+
+/* Loading spinner */
+.loading-spinner {
+    border: 3px solid #F3F4F6;
+    border-top: 3px solid var(--primary-teal);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+    .mobile-padding {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .mobile-text-center {
+        text-align: center;
+    }
+    
+    .mobile-full-width {
+        width: 100%;
+    }
+}
+
+/* Focus states for accessibility */
+.focus-ring:focus {
+    outline: 2px solid var(--primary-teal);
+    outline-offset: 2px;
+}
+
+/* Custom tooltip */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #374151;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Success/Error message styles */
+.message-success {
+    background: #ECFDF5;
+    border: 1px solid #10B981;
+    color: #065F46;
+}
+
+.message-error {
+    background: #FEF2F2;
+    border: 1px solid #EF4444;
+    color: #991B1B;
+}
+
+.message-warning {
+    background: #FFFBEB;
+    border: 1px solid #F59E0B;
+    color: #92400E;
+}
+
+.message-info {
+    background: #EFF6FF;
+    border: 1px solid #3B82F6;
+    color: #1E40AF;
+}

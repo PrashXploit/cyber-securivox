@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suspicious Link Checker - Cyber Securivox</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="text-2xl font-bold text-teal-600">
+                            <i class="fas fa-shield-alt mr-2"></i>Cyber Securivox
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="tracker.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Habit Tracker</a>
+                        <a href="link-checker.html" class="text-teal-600 hover:text-teal-800 px-3 py-2 rounded-md text-sm font-medium">Link Checker</a>
+                        <a href="password-tester.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Password Test</a>
+                        <a href="chatbot.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">CyberCoach</a>
+                        <a href="learn.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Learn</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-teal-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="tracker.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Habit Tracker</a>
+                <a href="link-checker.html" class="text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Link Checker</a>
+                <a href="password-tester.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Password Test</a>
+                <a href="chatbot.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">CyberCoach</a>
+                <a href="learn.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Learn</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <i class="fas fa-link text-5xl text-blue-600 mb-4"></i>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Suspicious Link Checker</h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Scan links before clicking them to protect yourself from phishing attacks and malicious websites.
+            </p>
+        </div>
+
+        <!-- Link Input Section -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-search text-blue-600 mr-3"></i>
+                Check a Link
+            </h2>
+
+            <div class="space-y-4">
+                <div>
+                    <label for="link-input" class="block text-sm font-medium text-gray-700 mb-2">
+                        Enter URL to check:
+                    </label>
+                    <div class="flex gap-3">
+                        <input
+                            type="url"
+                            id="link-input"
+                            placeholder="https://example.com or paste any link here..."
+                            class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                        >
+                        <button
+                            id="check-link-btn"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 flex items-center"
+                        >
+                            <i class="fas fa-search mr-2"></i>
+                            Check Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-sm text-gray-500">Quick test:</span>
+                    <button class="test-link text-sm text-blue-600 hover:text-blue-800 underline" data-url="http://phishing-example.com">
+                        Suspicious Link
+                    </button>
+                    <button class="test-link text-sm text-blue-600 hover:text-blue-800 underline" data-url="https://bit.ly/test123">
+                        Shortened URL
+                    </button>
+                    <button class="test-link text-sm text-blue-600 hover:text-blue-800 underline" data-url="https://google.com">
+                        Safe Link
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="hidden">
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-clipboard-list text-blue-600 mr-2"></i>
+                    Scan Results
+                </h3>
+                <div id="scan-results"></div>
+            </div>
+        </div>
+
+        <!-- Recent Scans -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-history text-blue-600 mr-2"></i>
+                Recent Scans
+            </h3>
+            <div id="recent-scans" class="space-y-3">
+                <p class="text-gray-500 text-center py-8">No recent scans. Start by checking a link above!</p>
+            </div>
+            <div class="mt-4 text-center">
+                <button id="clear-history" class="text-sm text-gray-500 hover:text-gray-700 underline">
+                    Clear History
+                </button>
+            </div>
+        </div>
+
+        <!-- Security Tips -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl shadow-lg p-8">
+            <h3 class="text-2xl font-bold mb-6">
+                <i class="fas fa-lightbulb mr-2"></i>
+                Link Safety Tips
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold mb-2">🚨 Red Flags to Watch For:</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li>• Shortened URLs (bit.ly, tinyurl, etc.)</li>
+                        <li>• Misspelled domain names</li>
+                        <li>• Suspicious file extensions (.exe, .scr)</li>
+                        <li>• URLs with many redirects</li>
+                        <li>• Non-HTTPS connections for sensitive sites</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-2">✅ Safety Best Practices:</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li>• Hover over links to preview URLs</li>
+                        <li>• Type URLs manually when possible</li>
+                        <li>• Use reputable link checkers</li>
+                        <li>• Keep browsers updated</li>
+                        <li>• Trust your instincts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 px-4 mt-16">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-teal-400 mb-4">
+                    <i class="fas fa-shield-alt mr-2"></i>Cyber Securivox
+                </h3>
+                <p class="text-gray-300 max-w-2xl mx-auto">
+                    Building a safer digital world, one habit at a time. Stay protected, stay informed, stay secure.
+                </p>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8">
+                <p class="text-gray-400">
+                    © 2024 Cyber Securivox. Built for digital safety education and awareness.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/link-checker.js"></script>
+</body>
+</html>

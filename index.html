@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Securivox - Build Safe Habits. Stay Protected.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-teal-600">
+                            <i class="fas fa-shield-alt mr-2"></i>Cyber Securivox
+                        </h1>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-teal-600 hover:text-teal-800 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="tracker.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Habit Tracker</a>
+                        <a href="link-checker.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Link Checker</a>
+                        <a href="password-tester.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Password Test</a>
+                        <a href="chatbot.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">CyberCoach</a>
+                        <a href="learn.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Learn</a>
+                        <a href="security-scanner.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Scanner</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-teal-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="tracker.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Habit Tracker</a>
+                <a href="link-checker.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Link Checker</a>
+                <a href="password-tester.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Password Test</a>
+                <a href="chatbot.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">CyberCoach</a>
+                <a href="learn.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Learn</a>
+                <a href="security-scanner.html" class="text-gray-700 hover:text-teal-600 block px-3 py-2 rounded-md text-base font-medium">Scanner</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="mb-8">
+                <i class="fas fa-shield-alt text-6xl text-teal-500 mb-4"></i>
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-800 mb-4">
+                    Welcome to <span class="text-teal-600">Cyber Securivox</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 mb-8">
+                    Build Safe Habits. Stay Protected.
+                </p>
+                <p class="text-lg text-gray-500 max-w-3xl mx-auto mb-12">
+                    Your personal cybersecurity companion that helps you develop daily digital safety habits,
+                    check suspicious links, test password strength, and learn essential security practices.
+                </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                <a href="tracker.html" class="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition duration-300 transform hover:scale-105">
+                    <i class="fas fa-play mr-2"></i>Start My Safety Check
+                </a>
+                <a href="learn.html" class="bg-white hover:bg-gray-50 text-teal-600 border-2 border-teal-600 px-8 py-4 rounded-lg text-lg font-semibold transition duration-300">
+                    <i class="fas fa-book mr-2"></i>Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
+                Your Digital Safety Toolkit
+            </h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+                <!-- Habit Tracker Card -->
+                <div class="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <i class="fas fa-tasks text-4xl text-teal-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Habit Tracker</h3>
+                        <p class="text-gray-600 mb-4">Daily cybersecurity checklist to build protective habits</p>
+                        <a href="tracker.html" class="inline-block bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg transition duration-300">
+                            Start Tracking
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Link Checker Card -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <i class="fas fa-link text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Link Checker</h3>
+                        <p class="text-gray-600 mb-4">Scan suspicious links before clicking them</p>
+                        <a href="link-checker.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-300">
+                            Check Links
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Password Tester Card -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <i class="fas fa-key text-4xl text-purple-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Password Test</h3>
+                        <p class="text-gray-600 mb-4">Test your password strength and get improvement tips</p>
+                        <a href="password-tester.html" class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition duration-300">
+                            Test Password
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CyberCoach Card -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <i class="fas fa-robot text-4xl text-green-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">CyberCoach</h3>
+                        <p class="text-gray-600 mb-4">Get instant answers to cybersecurity questions</p>
+                        <a href="chatbot.html" class="inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition duration-300">
+                            Ask Coach
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Security Scanner Card -->
+                <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <i class="fas fa-search text-4xl text-red-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Security Scanner</h3>
+                        <p class="text-gray-600 mb-4">Comprehensive security assessment of your system</p>
+                        <a href="security-scanner.html" class="inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition duration-300">
+                            Run Scan
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 px-4 bg-gradient-to-r from-teal-600 to-blue-600 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12">Why Digital Safety Matters</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="text-4xl font-bold mb-2">95%</div>
+                    <p class="text-lg">of cyber attacks are due to human error</p>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">$4.45M</div>
+                    <p class="text-lg">average cost of a data breach in 2023</p>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">3.4B</div>
+                    <p class="text-lg">phishing emails sent daily</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-teal-400 mb-4">
+                    <i class="fas fa-shield-alt mr-2"></i>Cyber Securivox
+                </h3>
+                <p class="text-gray-300 max-w-2xl mx-auto">
+                    Building a safer digital world, one habit at a time. Stay protected, stay informed, stay secure.
+                </p>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8">
+                <p class="text-gray-400">
+                    © 2024 Cyber Securivox. Built for digital safety education and awareness.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
