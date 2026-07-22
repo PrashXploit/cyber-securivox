@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Securivox - Complete Digital Security Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Professional Widescreen 16:9 Format */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            overflow: hidden;
+        }
+        
+        .slide {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            padding: 3rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            box-sizing: border-box;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .slide.active {
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .slide-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 2rem;
+            box-sizing: border-box;
+        }
+        
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 30px;
+        }
+        
+        .nav-btn {
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .nav-btn:hover:not(:disabled) {
+            background: #0284c7;
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn:disabled {
+            background: #6B7280;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .slide-number {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 25px;
+            font-weight: bold;
+            z-index: 1000;
+            font-size: 14px;
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0ea5e9, #06b6d4);
+            transition: width 0.3s ease;
+            z-index: 1001;
+            width: 0%;
+        }
+        
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Tool boxes */
+        .tool-box {
+            background: white;
+            border: 2px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tool-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-color: #0284c7;
+        }
+        
+        /* Feature highlights */
+        .feature-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #0ea5e9;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(14, 165, 233, 0.2);
+        }
+        
+        /* Print styles for widescreen */
+        @media print {
+            @page {
+                size: 13.33in 7.5in;
+                margin: 0.5in;
+            }
+            
+            .slide {
+                display: block !important;
+                width: 100%;
+                height: 100vh;
+                page-break-after: always;
+                padding: 1rem;
+                box-sizing: border-box;
+                background: white !important;
+            }
+            
+            .navigation, .slide-number, .progress-bar {
+                display: none !important;
+            }
+            
+            .slide-content {
+                max-width: 100%;
+                padding: 0;
+            }
+        }
+        
+        /* Ensure all slides have proper background and text colors */
+        .slide {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+            color: #1f2937 !important;
+        }
+
+        .slide * {
+            color: inherit;
+        }
+
+        .slide h1, .slide h2, .slide h3, .slide h4, .slide h5, .slide h6 {
+            color: #1f2937 !important;
+        }
+
+        .slide p, .slide li, .slide span {
+            color: #4b5563 !important;
+        }
+
+        /* Fix for slides 12 and 13 specifically */
+        #slide12, #slide13 {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+            color: #1f2937 !important;
+            display: none;
+        }
+
+        #slide12.active, #slide13.active {
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .slide {
+                padding: 1rem;
+            }
+
+            .slide-content {
+                padding: 0 1rem;
+            }
+
+            h1 { font-size: 2.5rem !important; }
+            h2 { font-size: 1.8rem !important; }
+
+            .grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+        }
+        
+        /* Professional color scheme */
+        .primary-gradient {
+            background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+        }
+        
+        .secondary-gradient {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+        }
+        
+        .success-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .warning-gradient {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Slide 1: Title Slide -->
+    <div class="slide active fade-in" id="slide1">
+        <div class="slide-content text-center">
+            <div class="mb-8">
+                <i class="fas fa-shield-alt text-8xl text-blue-600 mb-6"></i>
+                <h1 class="text-7xl font-bold text-gray-800 mb-4">CYBER SECURIVOX</h1>
+                <h2 class="text-3xl text-gray-600 mb-6">Complete Digital Security Platform</h2>
+                <p class="text-xl text-gray-500 max-w-4xl mx-auto leading-relaxed mb-8">
+                    A comprehensive cybersecurity education and protection platform featuring 9 integrated security tools
+                    for building safe digital habits and protecting against cyber threats.
+                </p>
+            </div>
+
+            <!-- Team Information -->
+            <div class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg max-w-5xl mx-auto mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-users mr-3 text-blue-600"></i>Project Team
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <p class="font-bold text-gray-800">D. PRASHANTH</p>
+                        <p class="text-sm text-gray-600">22N81A6220</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <p class="font-bold text-gray-800">J. MANISH REDDY</p>
+                        <p class="text-sm text-gray-600">22N81A6218</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <p class="font-bold text-gray-800">C. VEDA YESHWANTH</p>
+                        <p class="text-sm text-gray-600">22N81A6240</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <p class="font-bold text-gray-800">R. KANIF NAIK</p>
+                        <p class="text-sm text-gray-600">22N81A6258</p>
+                    </div>
+                </div>
+                
+                <div class="border-t pt-6">
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-university mr-2 text-indigo-600"></i>Institution
+                    </h4>
+                    <p class="text-gray-700 font-bold text-lg mb-4">Sphoorthy Engineering College</p>
+                    <div class="primary-gradient text-white p-4 rounded-lg">
+                        <h5 class="font-bold text-xl">
+                            <i class="fas fa-presentation mr-2"></i>INTERNAL ORAL MINI PROJECT (IOMP) REVIEW
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Overview -->
+            <div class="primary-gradient text-white p-6 rounded-xl shadow-lg max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-tools mr-2"></i>9 Integrated Security Tools
+                </h3>
+                <p class="text-lg">
+                    Habit Tracker • Link Checker • Password Tester • AI Coach • Learning Center • 
+                    Security Scanner • Image Steganography • Threat Intelligence • Attack Monitoring
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: Abstract -->
+    <div class="slide fade-in" id="slide2">
+        <div class="slide-content">
+            <h1 class="text-6xl font-bold text-center text-gray-800 mb-12">
+                <i class="fas fa-file-alt text-blue-600 mr-4"></i>Abstract
+            </h1>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-white p-8 rounded-xl shadow-lg mb-8 border border-blue-200">
+                    <p class="text-xl text-gray-700 leading-relaxed mb-6">
+                        <strong>Cyber Securivox</strong> is a comprehensive cybersecurity education and protection platform 
+                        designed to address the growing need for digital safety in our interconnected world. With cyber attacks 
+                        increasing by 38% annually and 95% attributed to human error, there is a critical need for accessible, 
+                        practical cybersecurity education tools.
+                    </p>
+
+                    <p class="text-xl text-gray-700 leading-relaxed mb-6">
+                        This platform provides a complete suite of <strong>9 integrated security tools</strong> including 
+                        daily habit tracking, suspicious link detection, password strength analysis, AI-powered guidance, 
+                        comprehensive learning resources, security scanning, image steganography, real-time threat intelligence, 
+                        and global attack monitoring. Built using modern web technologies, the platform operates entirely 
+                        client-side, ensuring complete user privacy and data security.
+                    </p>
+
+                    <p class="text-xl text-gray-700 leading-relaxed">
+                        The system employs gamification principles, behavioral psychology, and real-time assessment to 
+                        encourage consistent cybersecurity practices. Key innovations include habit formation tools, 
+                        personalized learning paths, and integrated threat monitoring that help users develop lasting 
+                        digital safety behaviors.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-lightbulb text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Innovation</h3>
+                        <p class="text-gray-700">First comprehensive platform combining education, habit formation, and real-time threat monitoring</p>
+                    </div>
+
+                    <div class="feature-card text-center">
+                        <i class="fas fa-shield-alt text-4xl text-green-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Security</h3>
+                        <p class="text-gray-700">Complete client-side processing ensures user privacy and data protection</p>
+                    </div>
+
+                    <div class="feature-card text-center">
+                        <i class="fas fa-users text-4xl text-purple-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Accessibility</h3>
+                        <p class="text-gray-700">User-friendly interface accessible to users of all technical skill levels</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Domain Description -->
+    <div class="slide fade-in" id="slide3">
+        <div class="slide-content">
+            <h1 class="text-6xl font-bold text-center text-gray-800 mb-12">
+                <i class="fas fa-globe text-blue-600 mr-4"></i>Domain Description
+            </h1>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-blue-200">
+                        <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                            <i class="fas fa-industry mr-3"></i>Cybersecurity Education Domain
+                        </h2>
+                        <p class="text-lg text-gray-700 mb-6">
+                            The cybersecurity education domain focuses on developing awareness, knowledge, and practical
+                            skills to protect digital assets and personal information from evolving cyber threats.
+                        </p>
+                        <ul class="text-lg text-gray-700 space-y-3">
+                            <li><i class="fas fa-check text-green-500 mr-3"></i>Threat awareness and recognition</li>
+                            <li><i class="fas fa-check text-green-500 mr-3"></i>Safe digital practices and habits</li>
+                            <li><i class="fas fa-check text-green-500 mr-3"></i>Risk assessment and mitigation</li>
+                            <li><i class="fas fa-check text-green-500 mr-3"></i>Incident response and recovery</li>
+                            <li><i class="fas fa-check text-green-500 mr-3"></i>Continuous learning and adaptation</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-red-200">
+                        <h2 class="text-3xl font-bold text-red-600 mb-6">
+                            <i class="fas fa-chart-line mr-3"></i>Current Threat Landscape
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                                <h4 class="font-bold text-red-700 text-lg">Daily Threats</h4>
+                                <p class="text-red-600">3.4 billion phishing emails sent daily</p>
+                            </div>
+                            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                                <h4 class="font-bold text-orange-700 text-lg">Financial Impact</h4>
+                                <p class="text-orange-600">$4.45M average cost per data breach</p>
+                            </div>
+                            <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                                <h4 class="font-bold text-yellow-700 text-lg">Human Factor</h4>
+                                <p class="text-yellow-600">95% of attacks due to human error</p>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+                                <h4 class="font-bold text-purple-700 text-lg">Growth Rate</h4>
+                                <p class="text-purple-600">38% annual increase in cyber attacks</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="primary-gradient text-white p-8 rounded-xl">
+                    <h2 class="text-3xl font-bold mb-8 text-center">
+                        <i class="fas fa-bullseye mr-3"></i>Domain Challenges Addressed
+                    </h2>
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <i class="fas fa-graduation-cap text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Education Gap</h3>
+                            <p class="text-sm">Lack of accessible cybersecurity education for general users</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-calendar-check text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Habit Formation</h3>
+                            <p class="text-sm">Difficulty maintaining consistent security practices</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-clock text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Real-time Assessment</h3>
+                            <p class="text-sm">Need for immediate security feedback and guidance</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-mobile-alt text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Accessibility</h3>
+                            <p class="text-sm">Platform-independent security tools and education</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Literature Survey -->
+    <div class="slide fade-in" id="slide4">
+        <div class="slide-content">
+            <h1 class="text-6xl font-bold text-center text-gray-800 mb-12">
+                <i class="fas fa-book-open text-purple-600 mr-4"></i>Literature Survey
+            </h1>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-purple-200">
+                        <h2 class="text-3xl font-bold text-purple-600 mb-6">
+                            <i class="fas fa-search mr-3"></i>Research Background
+                        </h2>
+                        <div class="space-y-6">
+                            <div class="border-l-4 border-blue-500 pl-6">
+                                <h4 class="font-bold text-blue-700 text-lg">Cybersecurity Education Research</h4>
+                                <p class="text-gray-600">Studies show interactive learning platforms increase retention by 60% compared to traditional methods. Gamification improves engagement by 48%.</p>
+                            </div>
+                            <div class="border-l-4 border-green-500 pl-6">
+                                <h4 class="font-bold text-green-700 text-lg">Habit Formation Psychology</h4>
+                                <p class="text-gray-600">Research indicates 21-66 days needed to form new habits. Consistent daily practice with feedback loops improves adherence by 40%.</p>
+                            </div>
+                            <div class="border-l-4 border-red-500 pl-6">
+                                <h4 class="font-bold text-red-700 text-lg">Threat Detection Studies</h4>
+                                <p class="text-gray-600">Machine learning approaches achieve 95%+ accuracy in phishing detection. Real-time analysis improves user response time by 70%.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-orange-200">
+                        <h2 class="text-3xl font-bold text-orange-600 mb-6">
+                            <i class="fas fa-chart-bar mr-3"></i>Industry Analysis
+                        </h2>
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h4 class="font-bold text-gray-700 text-lg mb-3">Existing Solutions</h4>
+                                <ul class="text-gray-600 space-y-2">
+                                    <li>• <strong>KnowBe4</strong> - Enterprise training platform ($15-50/user/year)</li>
+                                    <li>• <strong>Proofpoint Security Awareness</strong> - Corporate focus</li>
+                                    <li>• <strong>SANS Security Awareness</strong> - Professional training</li>
+                                    <li>• <strong>Cybrary</strong> - Online cybersecurity courses</li>
+                                    <li>• <strong>Various browser extensions</strong> - Limited functionality</li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 p-6 rounded-lg">
+                                <h4 class="font-bold text-blue-700 text-lg mb-3">Market Gap Identified</h4>
+                                <p class="text-blue-600">Lack of comprehensive, free, habit-focused platforms for individual users with integrated threat monitoring and practical tools.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="secondary-gradient text-white p-8 rounded-xl">
+                    <h2 class="text-3xl font-bold mb-8 text-center">Key Research Findings</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <i class="fas fa-brain text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Cognitive Load Theory</h3>
+                            <p>Bite-sized learning modules improve comprehension and long-term retention of security concepts</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-gamepad text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Gamification Impact</h3>
+                            <p>Progress tracking, achievements, and rewards increase user engagement and habit formation</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-mobile-alt text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Accessibility Research</h3>
+                            <p>70% of users prefer mobile-accessible security tools with offline capabilities</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Existing System & Drawbacks -->
+    <div class="slide fade-in" id="slide5">
+        <div class="slide-content">
+            <h1 class="text-6xl font-bold text-center text-gray-800 mb-12">
+                <i class="fas fa-exclamation-triangle text-red-600 mr-4"></i>Existing System & Drawbacks
+            </h1>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-blue-200">
+                        <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                            <i class="fas fa-list mr-3"></i>Current Solutions
+                        </h2>
+                        <div class="space-y-6">
+                            <div class="border border-gray-200 p-6 rounded-lg">
+                                <h4 class="font-bold text-gray-700 text-lg mb-3">Enterprise Platforms</h4>
+                                <ul class="text-gray-600 space-y-2">
+                                    <li>• KnowBe4 Security Awareness Training</li>
+                                    <li>• Proofpoint Security Awareness</li>
+                                    <li>• SANS Security Awareness</li>
+                                    <li>• Mimecast Awareness Training</li>
+                                    <li>• Cofense PhishMe</li>
+                                </ul>
+                            </div>
+                            <div class="border border-gray-200 p-6 rounded-lg">
+                                <h4 class="font-bold text-gray-700 text-lg mb-3">Individual Tools</h4>
+                                <ul class="text-gray-600 space-y-2">
+                                    <li>• Browser security extensions</li>
+                                    <li>• Password managers (LastPass, 1Password)</li>
+                                    <li>• Antivirus software</li>
+                                    <li>• Standalone security scanners</li>
+                                    <li>• VPN services</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-red-200">
+                        <h2 class="text-3xl font-bold text-red-600 mb-6">
+                            <i class="fas fa-times-circle mr-3"></i>Major Drawbacks
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                                <h4 class="font-bold text-red-700 text-lg">High Cost Barriers</h4>
+                                <p class="text-red-600">Enterprise solutions cost $15-50 per user annually, limiting accessibility</p>
+                            </div>
+                            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                                <h4 class="font-bold text-orange-700 text-lg">Complex Interfaces</h4>
+                                <p class="text-orange-600">Overwhelming UX designed for IT professionals, not general users</p>
+                            </div>
+                            <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                                <h4 class="font-bold text-yellow-700 text-lg">Limited Scope</h4>
+                                <p class="text-yellow-600">Focus on single aspects, not comprehensive education and practice</p>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+                                <h4 class="font-bold text-purple-700 text-lg">No Habit Formation</h4>
+                                <p class="text-purple-600">Lack of daily practice and behavioral change mechanisms</p>
+                            </div>
+                            <div class="bg-pink-50 p-4 rounded-lg border-l-4 border-pink-500">
+                                <h4 class="font-bold text-pink-700 text-lg">Fragmented Tools</h4>
+                                <p class="text-pink-600">Multiple subscriptions required for complete protection</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-red-500 to-pink-500 text-white p-8 rounded-xl">
+                    <h2 class="text-3xl font-bold mb-8 text-center">Critical Market Gaps</h2>
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <i class="fas fa-dollar-sign text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Accessibility</h3>
+                            <p>No free, comprehensive platforms for individual users</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-puzzle-piece text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Integration</h3>
+                            <p>Fragmented tools requiring multiple subscriptions and logins</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-calendar-check text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Daily Practice</h3>
+                            <p>No focus on building consistent security habits</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-user-friends text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">User Experience</h3>
+                            <p>Poor UX design for non-technical users</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Proposed System & Advantages -->
+    <div class="slide fade-in" id="slide6">
+        <div class="slide-content">
+            <h1 class="text-6xl font-bold text-center text-gray-800 mb-12">
+                <i class="fas fa-lightbulb text-green-600 mr-4"></i>Proposed System & Advantages
+            </h1>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="success-gradient text-white p-8 rounded-xl mb-8">
+                    <h2 class="text-4xl font-bold text-center mb-6">Cyber Securivox Solution</h2>
+                    <p class="text-xl text-center leading-relaxed">
+                        A comprehensive, free, habit-focused cybersecurity platform that integrates education,
+                        practice, real-time assessment, and threat monitoring in one unified solution.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-green-200">
+                        <h2 class="text-3xl font-bold text-green-600 mb-6">
+                            <i class="fas fa-star mr-3"></i>Core Features
+                        </h2>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <i class="fas fa-tasks text-green-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 text-lg">Daily Habit Tracker</h4>
+                                    <p class="text-gray-600">7 essential security habits with progress tracking and streaks</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <i class="fas fa-link text-blue-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 text-lg">Link Security Checker</h4>
+                                    <p class="text-gray-600">Real-time phishing and malware detection with detailed analysis</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <i class="fas fa-key text-purple-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 text-lg">Password Strength Tester</h4>
+                                    <p class="text-gray-600">Advanced analysis with secure password generation</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <i class="fas fa-robot text-teal-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 text-lg">AI CyberCoach</h4>
+                                    <p class="text-gray-600">Interactive chatbot for instant security guidance</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <i class="fas fa-graduation-cap text-indigo-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 text-lg">Learning Center</h4>
+                                    <p class="text-gray-600">Comprehensive cybersecurity education modules</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-blue-200">
+                        <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                            <i class="fas fa-tools mr-3"></i>Advanced Tools
+                        </h2>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <i class="fas fa-search text-orange-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 text-lg">Security Scanner</h4>
+                                    <p class="text-gray-600">Comprehensive system and network security assessment</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <i class="fas fa-image text-yellow-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 text-lg">Image Steganography</h4>
+                                    <p class="text-gray-600">Hide and extract secret messages in images securely</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <i class="fas fa-newspaper text-red-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 text-lg">Threat Intelligence</h4>
+                                    <p class="text-gray-600">Real-time cybercrime news and threat analysis</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <i class="fas fa-globe text-pink-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 text-lg">Attack Monitoring</h4>
+                                    <p class="text-gray-600">Global cyberattack visualization and tracking</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="primary-gradient text-white p-8 rounded-xl">
+                    <h2 class="text-3xl font-bold mb-8 text-center">Competitive Advantages</h2>
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <i class="fas fa-gift text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">100% Free</h3>
+                            <p>No subscription fees, hidden costs, or premium tiers</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-shield-alt text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Privacy-First</h3>
+                            <p>All processing happens locally in browser</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-chart-line text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Habit-Focused</h3>
+                            <p>Psychology-based approach to behavior change</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-layer-group text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">All-in-One</h3>
+                            <p>9 integrated tools in single platform</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: System Architecture -->
+    <div class="slide fade-in" id="slide7">
+        <div class="slide-content">
+            <h1 class="text-6xl font-bold text-center text-gray-800 mb-12">
+                <i class="fas fa-sitemap text-indigo-600 mr-4"></i>System Architecture
+            </h1>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-white p-8 rounded-xl shadow-lg mb-8 border border-indigo-200">
+                    <h2 class="text-3xl font-bold text-indigo-600 mb-6 text-center">
+                        <i class="fas fa-layer-group mr-3"></i>Client-Side Architecture
+                    </h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="bg-blue-100 p-6 rounded-lg mb-4">
+                                <i class="fas fa-desktop text-4xl text-blue-600 mb-3"></i>
+                                <h3 class="font-bold text-xl text-gray-800">Presentation Layer</h3>
+                            </div>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• HTML5 Structure</li>
+                                <li>• CSS3 Styling</li>
+                                <li>• Tailwind CSS Framework</li>
+                                <li>• Responsive Design</li>
+                                <li>• FontAwesome Icons</li>
+                            </ul>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-green-100 p-6 rounded-lg mb-4">
+                                <i class="fas fa-cogs text-4xl text-green-600 mb-3"></i>
+                                <h3 class="font-bold text-xl text-gray-800">Logic Layer</h3>
+                            </div>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• JavaScript ES6+</li>
+                                <li>• Modular Components</li>
+                                <li>• Event Handling</li>
+                                <li>• State Management</li>
+                                <li>• API Integration</li>
+                            </ul>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-purple-100 p-6 rounded-lg mb-4">
+                                <i class="fas fa-database text-4xl text-purple-600 mb-3"></i>
+                                <h3 class="font-bold text-xl text-gray-800">Data Layer</h3>
+                            </div>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• Local Storage</li>
+                                <li>• Session Storage</li>
+                                <li>• IndexedDB</li>
+                                <li>• File System API</li>
+                                <li>• Cache API</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="feature-card">
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4">
+                            <i class="fas fa-shield-alt mr-3"></i>Security Features
+                        </h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Client-side processing only</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>No data transmission to servers</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Local encryption for sensitive data</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Secure random generation</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Content Security Policy</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="text-2xl font-bold text-green-600 mb-4">
+                            <i class="fas fa-rocket mr-3"></i>Performance Features
+                        </h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Lazy loading components</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Optimized asset delivery</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Progressive Web App features</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Offline functionality</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Service Worker caching</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="secondary-gradient text-white p-8 rounded-xl">
+                    <h2 class="text-3xl font-bold mb-6 text-center">Technology Stack</h2>
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <i class="fab fa-html5 text-4xl mb-3"></i>
+                            <h3 class="font-bold text-lg">Frontend</h3>
+                            <p class="text-sm">HTML5, CSS3, JavaScript</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-paint-brush text-4xl mb-3"></i>
+                            <h3 class="font-bold text-lg">Styling</h3>
+                            <p class="text-sm">Tailwind CSS, Custom CSS</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-icons text-4xl mb-3"></i>
+                            <h3 class="font-bold text-lg">Icons</h3>
+                            <p class="text-sm">FontAwesome 6.4.0</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-mobile-alt text-4xl mb-3"></i>
+                            <h3 class="font-bold text-lg">Responsive</h3>
+                            <p class="text-sm">Mobile-first design</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Complete Modules (All 9 Tools) -->
+    <div class="slide fade-in" id="slide8">
+        <div class="slide-content">
+            <h1 class="text-6xl font-bold text-center text-gray-800 mb-12">
+                <i class="fas fa-tools text-blue-600 mr-4"></i>Complete Modules
+            </h1>
+            <h2 class="text-3xl text-center text-gray-600 mb-12">9 Integrated Security Tools</h2>
+
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <!-- Core Security Tools -->
+                    <div class="tool-box">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-tasks text-4xl text-green-600 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800">Daily Habit Tracker</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 flex-grow">
+                            <li>• 7 essential security habits</li>
+                            <li>• Progress tracking & streaks</li>
+                            <li>• Gamification elements</li>
+                            <li>• Achievement system</li>
+                            <li>• Habit formation psychology</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-box">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-link text-4xl text-blue-600 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800">Link Security Checker</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 flex-grow">
+                            <li>• Real-time phishing detection</li>
+                            <li>• Malware scanning</li>
+                            <li>• URL reputation analysis</li>
+                            <li>• Safety recommendations</li>
+                            <li>• Detailed security reports</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-box">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-key text-4xl text-purple-600 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800">Password Strength Tester</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 flex-grow">
+                            <li>• Advanced strength analysis</li>
+                            <li>• Secure password generation</li>
+                            <li>• Entropy calculation</li>
+                            <li>• Common password detection</li>
+                            <li>• Security recommendations</li>
+                        </ul>
+                    </div>
+
+                    <!-- AI & Learning Tools -->
+                    <div class="tool-box">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-robot text-4xl text-teal-600 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800">AI CyberCoach</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 flex-grow">
+                            <li>• Interactive chatbot interface</li>
+                            <li>• Instant security guidance</li>
+                            <li>• Personalized recommendations</li>
+                            <li>• 24/7 availability</li>
+                            <li>• Context-aware responses</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-box">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-graduation-cap text-4xl text-indigo-600 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800">Learning Center</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 flex-grow">
+                            <li>• Comprehensive tutorials</li>
+                            <li>• Interactive lessons</li>
+                            <li>• Progress tracking</li>
+                            <li>• Skill assessments</li>
+                            <li>• Certification paths</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-box">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-search text-4xl text-orange-600 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800">Security Scanner</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 flex-grow">
+                            <li>• System vulnerability assessment</li>
+                            <li>• Network security analysis</li>
+                            <li>• Configuration checks</li>
+                            <li>• Detailed security reports</li>
+                            <li>• Remediation guidance</li>
+                        </ul>
+                    </div>
+
+                    <!-- Advanced Security Tools -->
+                    <div class="tool-box">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-image text-4xl text-yellow-600 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800">Image Steganography</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 flex-grow">
+                            <li>• Hide messages in images</li>
+                            <li>• LSB steganography technique</li>
+                            <li>• Password protection</li>
+                            <li>• Multiple image formats</li>
+                            <li>• Secure extraction</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-box">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-newspaper text-4xl text-red-600 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800">Threat Intelligence</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 flex-grow">
+                            <li>• Real-time cybercrime news</li>
+                            <li>• Threat categorization</li>
+                            <li>• Breaking security alerts</li>
+                            <li>• Industry reports</li>
+                            <li>• Trend analysis</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-box">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-globe text-4xl text-pink-600 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800">Attack Monitoring</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 flex-grow">
+                            <li>• Global cyberattack visualization</li>
+                            <li>• Real-time attack tracking</li>
+                            <li>• Interactive world map</li>
+                            <li>• Attack type classification</li>
+                            <li>• Geographic analysis</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="primary-gradient text-white p-8 rounded-xl text-center">
+                    <h2 class="text-3xl font-bold mb-4">Integrated Platform Benefits</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div>
+                            <i class="fas fa-layer-group text-4xl mb-3"></i>
+                            <h3 class="font-bold text-xl mb-2">Unified Experience</h3>
+                            <p>All tools accessible from single dashboard</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-sync-alt text-4xl mb-3"></i>
+                            <h3 class="font-bold text-xl mb-2">Data Synchronization</h3>
+                            <p>Seamless data sharing between modules</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-chart-line text-4xl mb-3"></i>
+                            <h3 class="font-bold text-xl mb-2">Progress Tracking</h3>
+                            <p>Comprehensive analytics across all tools</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: System Design -->
+    <div class="slide fade-in" id="slide9">
+        <div class="slide-content">
+            <h1 class="text-6xl font-bold text-center text-gray-800 mb-12">
+                <i class="fas fa-drafting-compass text-blue-600 mr-4"></i>System Design
+            </h1>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-blue-200">
+                        <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                            <i class="fas fa-cube mr-3"></i>Modular Design
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-700 text-lg">Component-Based Architecture</h4>
+                                <p class="text-blue-600">Each tool is a self-contained module with defined interfaces</p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-green-700 text-lg">Scalable Structure</h4>
+                                <p class="text-green-600">Easy to add new tools and features without affecting existing ones</p>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-purple-700 text-lg">Reusable Components</h4>
+                                <p class="text-purple-600">Common UI elements and utilities shared across modules</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-green-200">
+                        <h2 class="text-3xl font-bold text-green-600 mb-6">
+                            <i class="fas fa-users mr-3"></i>User-Centered Design
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="bg-orange-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-orange-700 text-lg">Intuitive Interface</h4>
+                                <p class="text-orange-600">Clean, simple design accessible to all skill levels</p>
+                            </div>
+                            <div class="bg-teal-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-teal-700 text-lg">Progressive Disclosure</h4>
+                                <p class="text-teal-600">Advanced features revealed as users gain experience</p>
+                            </div>
+                            <div class="bg-pink-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-pink-700 text-lg">Accessibility First</h4>
+                                <p class="text-pink-600">WCAG 2.1 compliant with keyboard navigation support</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg mb-8 border border-indigo-200">
+                    <h2 class="text-3xl font-bold text-indigo-600 mb-6 text-center">
+                        <i class="fas fa-sitemap mr-3"></i>Information Architecture
+                    </h2>
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <div class="bg-indigo-100 p-4 rounded-lg mb-3">
+                                <i class="fas fa-home text-3xl text-indigo-600"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800">Dashboard</h4>
+                            <p class="text-sm text-gray-600">Central hub with quick access to all tools</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-blue-100 p-4 rounded-lg mb-3">
+                                <i class="fas fa-tools text-3xl text-blue-600"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800">Tool Modules</h4>
+                            <p class="text-sm text-gray-600">Individual pages for each security tool</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-green-100 p-4 rounded-lg mb-3">
+                                <i class="fas fa-chart-bar text-3xl text-green-600"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800">Analytics</h4>
+                            <p class="text-sm text-gray-600">Progress tracking and usage statistics</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-purple-100 p-4 rounded-lg mb-3">
+                                <i class="fas fa-cog text-3xl text-purple-600"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800">Settings</h4>
+                            <p class="text-sm text-gray-600">Customization and preference management</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="secondary-gradient text-white p-8 rounded-xl">
+                    <h2 class="text-3xl font-bold mb-6 text-center">Design Principles</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <i class="fas fa-eye text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Visibility</h3>
+                            <p>Clear visual hierarchy and status indicators</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-sync text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Consistency</h3>
+                            <p>Uniform design patterns across all modules</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-undo text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Forgiveness</h3>
+                            <p>Error prevention and easy recovery mechanisms</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: UML Diagrams -->
+    <div class="slide fade-in" id="slide10">
+        <div class="slide-content">
+            <h1 class="text-6xl font-bold text-center text-gray-800 mb-12">
+                <i class="fas fa-project-diagram text-pink-600 mr-4"></i>UML Diagrams
+            </h1>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-pink-200">
+                        <h2 class="text-3xl font-bold text-pink-600 mb-6">
+                            <i class="fas fa-sitemap mr-3"></i>Use Case Diagram
+                        </h2>
+                        <div class="bg-gray-50 p-6 rounded-lg mb-4">
+                            <div class="text-center">
+                                <div class="bg-blue-100 p-4 rounded-lg mb-4">
+                                    <i class="fas fa-user text-3xl text-blue-600 mb-2"></i>
+                                    <h4 class="font-bold">User</h4>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-green-100 p-3 rounded text-sm">
+                                        <i class="fas fa-tasks mr-1"></i>Track Habits
+                                    </div>
+                                    <div class="bg-blue-100 p-3 rounded text-sm">
+                                        <i class="fas fa-link mr-1"></i>Check Links
+                                    </div>
+                                    <div class="bg-purple-100 p-3 rounded text-sm">
+                                        <i class="fas fa-key mr-1"></i>Test Passwords
+                                    </div>
+                                    <div class="bg-teal-100 p-3 rounded text-sm">
+                                        <i class="fas fa-robot mr-1"></i>Chat with AI
+                                    </div>
+                                    <div class="bg-indigo-100 p-3 rounded text-sm">
+                                        <i class="fas fa-graduation-cap mr-1"></i>Learn Security
+                                    </div>
+                                    <div class="bg-orange-100 p-3 rounded text-sm">
+                                        <i class="fas fa-search mr-1"></i>Scan System
+                                    </div>
+                                    <div class="bg-yellow-100 p-3 rounded text-sm">
+                                        <i class="fas fa-image mr-1"></i>Hide Messages
+                                    </div>
+                                    <div class="bg-red-100 p-3 rounded text-sm">
+                                        <i class="fas fa-newspaper mr-1"></i>View Threats
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-blue-200">
+                        <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                            <i class="fas fa-cubes mr-3"></i>Class Diagram
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-700">SecurityTool (Abstract)</h4>
+                                <ul class="text-sm text-blue-600 mt-2">
+                                    <li>+ name: String</li>
+                                    <li>+ description: String</li>
+                                    <li>+ initialize(): void</li>
+                                    <li>+ execute(): void</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-green-700">HabitTracker extends SecurityTool</h4>
+                                <ul class="text-sm text-green-600 mt-2">
+                                    <li>+ habits: Array</li>
+                                    <li>+ progress: Object</li>
+                                    <li>+ updateProgress(): void</li>
+                                </ul>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-purple-700">LinkChecker extends SecurityTool</h4>
+                                <ul class="text-sm text-purple-600 mt-2">
+                                    <li>+ url: String</li>
+                                    <li>+ result: Object</li>
+                                    <li>+ analyzeURL(): Object</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-green-200">
+                        <h2 class="text-3xl font-bold text-green-600 mb-6">
+                            <i class="fas fa-flow-chart mr-3"></i>Activity Diagram
+                        </h2>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-green-500 rounded-full mr-3"></div>
+                                    <span class="text-sm">User opens platform</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-blue-500 rounded-full mr-3"></div>
+                                    <span class="text-sm">Dashboard loads</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-purple-500 rounded-full mr-3"></div>
+                                    <span class="text-sm">User selects tool</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-orange-500 rounded-full mr-3"></div>
+                                    <span class="text-sm">Tool initializes</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-teal-500 rounded-full mr-3"></div>
+                                    <span class="text-sm">User interacts</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-pink-500 rounded-full mr-3"></div>
+                                    <span class="text-sm">Results displayed</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-red-500 rounded-full mr-3"></div>
+                                    <span class="text-sm">Data saved locally</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-orange-200">
+                        <h2 class="text-3xl font-bold text-orange-600 mb-6">
+                            <i class="fas fa-exchange-alt mr-3"></i>Sequence Diagram
+                        </h2>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="grid grid-cols-3 gap-4 text-center text-sm">
+                                <div>
+                                    <div class="bg-blue-100 p-2 rounded mb-2">User</div>
+                                    <div class="space-y-2">
+                                        <div class="bg-blue-50 p-1 rounded">Click Tool</div>
+                                        <div class="bg-blue-50 p-1 rounded">Input Data</div>
+                                        <div class="bg-blue-50 p-1 rounded">View Results</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="bg-green-100 p-2 rounded mb-2">Interface</div>
+                                    <div class="space-y-2">
+                                        <div class="bg-green-50 p-1 rounded">Load Module</div>
+                                        <div class="bg-green-50 p-1 rounded">Validate Input</div>
+                                        <div class="bg-green-50 p-1 rounded">Display Output</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="bg-purple-100 p-2 rounded mb-2">Logic</div>
+                                    <div class="space-y-2">
+                                        <div class="bg-purple-50 p-1 rounded">Initialize</div>
+                                        <div class="bg-purple-50 p-1 rounded">Process</div>
+                                        <div class="bg-purple-50 p-1 rounded">Return Result</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-gradient text-white p-8 rounded-xl">
+                    <h2 class="text-3xl font-bold mb-6 text-center">System Relationships</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <i class="fas fa-link text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Composition</h3>
+                            <p>Platform composed of multiple security tools</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-share-alt text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Association</h3>
+                            <p>Tools share common utilities and data</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-layer-group text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Inheritance</h3>
+                            <p>All tools extend base SecurityTool class</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: Implementation -->
+    <div class="slide fade-in" id="slide11">
+        <div class="slide-content">
+            <h1 class="text-6xl font-bold text-center text-gray-800 mb-12">
+                <i class="fas fa-code text-green-600 mr-4"></i>Implementation
+            </h1>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-green-200">
+                        <h2 class="text-3xl font-bold text-green-600 mb-6">
+                            <i class="fas fa-laptop-code mr-3"></i>Development Approach
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-green-700 text-lg">Agile Methodology</h4>
+                                <p class="text-green-600">Iterative development with continuous testing and feedback</p>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-700 text-lg">Modular Development</h4>
+                                <p class="text-blue-600">Each tool developed as independent module</p>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-purple-700 text-lg">Progressive Enhancement</h4>
+                                <p class="text-purple-600">Core functionality first, advanced features added incrementally</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-blue-200">
+                        <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                            <i class="fas fa-tools mr-3"></i>Development Tools
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-gray-700 text-lg">Code Editor</h4>
+                                <p class="text-gray-600">Visual Studio Code with extensions</p>
+                            </div>
+                            <div class="bg-orange-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-orange-700 text-lg">Version Control</h4>
+                                <p class="text-orange-600">Git with GitHub for collaboration</p>
+                            </div>
+                            <div class="bg-teal-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-teal-700 text-lg">Testing</h4>
+                                <p class="text-teal-600">Browser DevTools and manual testing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg mb-8 border border-indigo-200">
+                    <h2 class="text-3xl font-bold text-indigo-600 mb-6 text-center">
+                        <i class="fas fa-layer-group mr-3"></i>Implementation Layers
+                    </h2>
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <div class="bg-red-100 p-6 rounded-lg mb-4">
+                                <i class="fas fa-paint-brush text-3xl text-red-600 mb-3"></i>
+                                <h4 class="font-bold text-gray-800">Presentation</h4>
+                            </div>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>HTML5 structure</li>
+                                <li>CSS3 styling</li>
+                                <li>Responsive design</li>
+                                <li>Accessibility features</li>
+                            </ul>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-blue-100 p-6 rounded-lg mb-4">
+                                <i class="fas fa-cogs text-3xl text-blue-600 mb-3"></i>
+                                <h4 class="font-bold text-gray-800">Business Logic</h4>
+                            </div>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>JavaScript ES6+</li>
+                                <li>Modular functions</li>
+                                <li>Event handling</li>
+                                <li>State management</li>
+                            </ul>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-green-100 p-6 rounded-lg mb-4">
+                                <i class="fas fa-database text-3xl text-green-600 mb-3"></i>
+                                <h4 class="font-bold text-gray-800">Data Layer</h4>
+                            </div>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>Local storage</li>
+                                <li>Session storage</li>
+                                <li>IndexedDB</li>
+                                <li>File system API</li>
+                            </ul>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-purple-100 p-6 rounded-lg mb-4">
+                                <i class="fas fa-shield-alt text-3xl text-purple-600 mb-3"></i>
+                                <h4 class="font-bold text-gray-800">Security</h4>
+                            </div>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>Client-side encryption</li>
+                                <li>Secure random generation</li>
+                                <li>Input validation</li>
+                                <li>CSP headers</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-gradient text-white p-8 rounded-xl">
+                    <h2 class="text-3xl font-bold mb-6 text-center">Key Implementation Features</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <i class="fas fa-rocket text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Performance</h3>
+                            <p>Optimized loading, lazy components, efficient algorithms</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-mobile-alt text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Responsive</h3>
+                            <p>Mobile-first design, touch-friendly interface</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-universal-access text-4xl mb-4"></i>
+                            <h3 class="font-bold text-xl mb-3">Accessible</h3>
+                            <p>WCAG 2.1 compliant, keyboard navigation, screen reader support</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: Output Screenshots -->
+    <div class="slide fade-in" id="slide12">
+        <div class="slide-content">
+            <h1 class="text-6xl font-bold text-center text-gray-800 mb-12">
+                <i class="fas fa-desktop text-purple-600 mr-4"></i>Output Screenshots
+            </h1>
+
+            <div class="max-w-7xl mx-auto">
+                <!-- Platform Overview -->
+                <div class="bg-white p-8 rounded-xl shadow-lg mb-8 border border-purple-200">
+                    <h2 class="text-3xl font-bold text-purple-600 mb-6 text-center">
+                        <i class="fas fa-home mr-3"></i>Main Dashboard
+                    </h2>
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-xl border-2 border-dashed border-blue-300">
+                        <div class="text-center">
+                            <i class="fas fa-image text-6xl text-blue-400 mb-4"></i>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Cyber Securivox Dashboard</h3>
+                            <p class="text-gray-600 mb-6">Clean, intuitive interface with 9 security tools accessible from main dashboard</p>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="bg-white p-4 rounded-lg shadow">
+                                    <i class="fas fa-tasks text-green-600 text-2xl mb-2"></i>
+                                    <p class="text-sm font-semibold">Habit Tracker</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg shadow">
+                                    <i class="fas fa-link text-blue-600 text-2xl mb-2"></i>
+                                    <p class="text-sm font-semibold">Link Checker</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg shadow">
+                                    <i class="fas fa-key text-purple-600 text-2xl mb-2"></i>
+                                    <p class="text-sm font-semibold">Password Tester</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool Screenshots Grid -->
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <!-- Habit Tracker Output -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-green-200">
+                        <h3 class="text-2xl font-bold text-green-600 mb-4 flex items-center">
+                            <i class="fas fa-tasks mr-3"></i>Daily Habit Tracker
+                        </h3>
+                        <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                        Update software regularly
+                                    </span>
+                                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">7 days</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                        Use strong passwords
+                                    </span>
+                                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">5 days</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="flex items-center">
+                                        <i class="fas fa-circle text-gray-300 mr-2"></i>
+                                        Enable 2FA
+                                    </span>
+                                    <span class="bg-gray-300 text-white px-3 py-1 rounded-full text-sm">0 days</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <p class="text-green-600 font-bold">Progress: 71% Complete</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Link Checker Output -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-blue-200">
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4 flex items-center">
+                            <i class="fas fa-link mr-3"></i>Link Security Checker
+                        </h3>
+                        <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                            <div class="mb-4">
+                                <input type="text" value="https://example-phishing-site.com"
+                                       class="w-full p-3 border border-blue-300 rounded-lg bg-white" readonly>
+                            </div>
+                            <div class="bg-red-100 border border-red-300 p-4 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-exclamation-triangle text-red-600 mr-2"></i>
+                                    <span class="font-bold text-red-700">DANGEROUS LINK DETECTED</span>
+                                </div>
+                                <ul class="text-red-600 text-sm space-y-1">
+                                    <li>• Potential phishing attempt</li>
+                                    <li>• Suspicious domain registration</li>
+                                    <li>• Not recommended to visit</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password Tester Output -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-purple-200">
+                        <h3 class="text-2xl font-bold text-purple-600 mb-4 flex items-center">
+                            <i class="fas fa-key mr-3"></i>Password Strength Tester
+                        </h3>
+                        <div class="bg-purple-50 p-6 rounded-lg border border-purple-200">
+                            <div class="mb-4">
+                                <input type="password" value="MyStr0ng!P@ssw0rd2024"
+                                       class="w-full p-3 border border-purple-300 rounded-lg bg-white" readonly>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span>Strength:</span>
+                                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">Very Strong</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-green-500 h-3 rounded-full" style="width: 95%"></div>
+                                </div>
+                                <div class="text-sm text-gray-600">
+                                    <p>✓ Contains uppercase letters</p>
+                                    <p>✓ Contains lowercase letters</p>
+                                    <p>✓ Contains numbers</p>
+                                    <p>✓ Contains special characters</p>
+                                    <p>✓ Adequate length (20 characters)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI CyberCoach Output -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-teal-200">
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4 flex items-center">
+                            <i class="fas fa-robot mr-3"></i>AI CyberCoach
+                        </h3>
+                        <div class="bg-teal-50 p-6 rounded-lg border border-teal-200">
+                            <div class="space-y-4">
+                                <div class="bg-white p-3 rounded-lg border-l-4 border-blue-500">
+                                    <p class="text-sm"><strong>User:</strong> How can I protect myself from phishing emails?</p>
+                                </div>
+                                <div class="bg-teal-100 p-3 rounded-lg border-l-4 border-teal-500">
+                                    <p class="text-sm"><strong>AI Coach:</strong> Here are key steps to protect against phishing:</p>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Verify sender's email address carefully</li>
+                                        <li>• Don't click suspicious links</li>
+                                        <li>• Check for spelling/grammar errors</li>
+                                        <li>• Use email filters and security software</li>
+                                        <li>• When in doubt, contact the sender directly</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Tools Screenshots -->
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Image Steganography -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-yellow-200">
+                        <h3 class="text-xl font-bold text-yellow-600 mb-4 flex items-center">
+                            <i class="fas fa-image mr-2"></i>Steganography
+                        </h3>
+                        <div class="bg-yellow-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-file-image text-4xl text-yellow-600 mb-3"></i>
+                            <p class="text-sm text-gray-600 mb-3">Secret message hidden in image</p>
+                            <div class="bg-green-100 p-2 rounded text-xs text-green-700">
+                                ✓ Message successfully embedded
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Threat Intelligence -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-red-200">
+                        <h3 class="text-xl font-bold text-red-600 mb-4 flex items-center">
+                            <i class="fas fa-newspaper mr-2"></i>Threat Intel
+                        </h3>
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <div class="space-y-2 text-xs">
+                                <div class="bg-red-100 p-2 rounded">
+                                    <p class="font-bold">New Ransomware Variant</p>
+                                    <p class="text-gray-600">2 hours ago</p>
+                                </div>
+                                <div class="bg-orange-100 p-2 rounded">
+                                    <p class="font-bold">Phishing Campaign Alert</p>
+                                    <p class="text-gray-600">5 hours ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Attack Map -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-pink-200">
+                        <h3 class="text-xl font-bold text-pink-600 mb-4 flex items-center">
+                            <i class="fas fa-globe mr-2"></i>Attack Map
+                        </h3>
+                        <div class="bg-pink-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-map text-4xl text-pink-600 mb-3"></i>
+                            <p class="text-sm text-gray-600 mb-2">Live global attacks</p>
+                            <div class="text-2xl font-bold text-red-600">247</div>
+                            <div class="text-xs text-gray-500">Active attacks</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 13: Conclusion & References -->
+    <div class="slide fade-in" id="slide13">
+        <div class="slide-content">
+            <h1 class="text-6xl font-bold text-center text-gray-800 mb-12">
+                <i class="fas fa-flag-checkered text-green-600 mr-4"></i>Conclusion & References
+            </h1>
+
+            <div class="max-w-6xl mx-auto">
+                <!-- Project Summary -->
+                <div class="bg-white p-8 rounded-xl shadow-lg mb-8 border border-green-200">
+                    <h2 class="text-3xl font-bold text-green-600 mb-6 text-center">
+                        <i class="fas fa-trophy mr-3"></i>Project Achievements
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Key Accomplishments</h3>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                    <span>Successfully developed comprehensive cybersecurity platform with <strong>9 integrated tools</strong></span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                    <span>Implemented <strong>habit formation psychology</strong> for sustainable security practices</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                    <span>Created <strong>privacy-first architecture</strong> with complete client-side processing</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                    <span>Achieved <strong>100% free accessibility</strong> for all users regardless of technical skill</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                    <span>Integrated <strong>real-time threat monitoring</strong> and intelligence features</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Impact & Benefits</h3>
+                            <div class="space-y-4">
+                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                                    <h4 class="font-bold text-blue-700">Educational Impact</h4>
+                                    <p class="text-blue-600 text-sm">Provides accessible cybersecurity education to users of all backgrounds</p>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                                    <h4 class="font-bold text-green-700">Behavioral Change</h4>
+                                    <p class="text-green-600 text-sm">Encourages formation of lasting security habits through gamification</p>
+                                </div>
+                                <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+                                    <h4 class="font-bold text-purple-700">Real-time Protection</h4>
+                                    <p class="text-purple-600 text-sm">Offers immediate threat assessment and security guidance</p>
+                                </div>
+                                <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                                    <h4 class="font-bold text-orange-700">Market Innovation</h4>
+                                    <p class="text-orange-600 text-sm">First comprehensive free platform combining education and protection</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Future Enhancements -->
+                <div class="bg-white p-8 rounded-xl shadow-lg mb-8 border border-blue-200">
+                    <h2 class="text-3xl font-bold text-blue-600 mb-6 text-center">
+                        <i class="fas fa-rocket mr-3"></i>Future Enhancements
+                    </h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="bg-blue-100 p-4 rounded-lg mb-4">
+                                <i class="fas fa-mobile-alt text-3xl text-blue-600"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-2">Mobile Application</h4>
+                            <p class="text-gray-600 text-sm">Native iOS and Android apps for enhanced mobile experience</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-green-100 p-4 rounded-lg mb-4">
+                                <i class="fas fa-brain text-3xl text-green-600"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-2">Advanced AI</h4>
+                            <p class="text-gray-600 text-sm">Machine learning for personalized security recommendations</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-purple-100 p-4 rounded-lg mb-4">
+                                <i class="fas fa-users text-3xl text-purple-600"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-2">Community Features</h4>
+                            <p class="text-gray-600 text-sm">User forums, shared learning, and collaborative security</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- References -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+                        <i class="fas fa-book mr-3"></i>References & Resources
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-4">Academic References</h3>
+                            <div class="space-y-3 text-sm text-gray-600">
+                                <p>[1] NIST Cybersecurity Framework 2.0 (2024). "Framework for Improving Critical Infrastructure Cybersecurity"</p>
+                                <p>[2] Verizon Data Breach Investigations Report (2024). "Annual cybersecurity threat landscape analysis"</p>
+                                <p>[3] Fogg, B.J. (2020). "Behavior Model for Persuasive Design". Stanford Persuasive Technology Lab</p>
+                                <p>[4] SANS Institute (2024). "Security Awareness Training Effectiveness Study"</p>
+                                <p>[5] Cybersecurity & Infrastructure Security Agency (2024). "Human Factors in Cybersecurity"</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-4">Technical Resources</h3>
+                            <div class="space-y-3 text-sm text-gray-600">
+                                <p>[6] OWASP Foundation (2024). "Web Application Security Guidelines"</p>
+                                <p>[7] Mozilla Developer Network (2024). "Web Security Best Practices"</p>
+                                <p>[8] W3C Web Accessibility Initiative (2024). "WCAG 2.1 Guidelines"</p>
+                                <p>[9] D3.js Documentation (2024). "Data-Driven Documents Library"</p>
+                                <p>[10] Tailwind CSS Framework (2024). "Utility-First CSS Framework"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Thank You -->
+                <div class="primary-gradient text-white p-8 rounded-xl text-center">
+                    <h2 class="text-4xl font-bold mb-6">Thank You!</h2>
+                    <p class="text-xl mb-6">Questions & Discussion</p>
+                    <div class="flex justify-center items-center space-x-8">
+                        <div class="text-center">
+                            <i class="fas fa-envelope text-3xl mb-2"></i>
+                            <p class="text-sm">Contact Us</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-globe text-3xl mb-2"></i>
+                            <p class="text-sm">Live Demo Available</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-code text-3xl mb-2"></i>
+                            <p class="text-sm">Open Source</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-lg">
+                        <p><strong>Cyber Securivox</strong> - Building Safer Digital Habits</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">
+            <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+            Next <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+    
+    <div class="slide-number" id="slideNumber">1 / 13</div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 13;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            const targetSlide = document.getElementById(`slide${currentSlide}`);
+            if (targetSlide) {
+                targetSlide.classList.add('active');
+                targetSlide.classList.add('fade-in');
+            }
+            
+            const slideNumber = document.getElementById('slideNumber');
+            if (slideNumber) {
+                slideNumber.textContent = `${currentSlide} / ${totalSlides}`;
+            }
+            
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = `${(currentSlide / totalSlides) * 100}%`;
+            }
+            
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            if (prevBtn) prevBtn.disabled = currentSlide === 1;
+            if (nextBtn) nextBtn.disabled = currentSlide === totalSlides;
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+
+        // Debug: Check if all slides exist
+        console.log('Checking slides...');
+        for(let i = 1; i <= totalSlides; i++) {
+            const slide = document.getElementById(`slide${i}`);
+            console.log(`Slide ${i}:`, slide ? 'EXISTS' : 'MISSING');
+            if (slide) {
+                // Ensure slide has proper styling
+                slide.style.background = 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)';
+                slide.style.color = '#1f2937';
+            }
+        }
+    </script>
+</body>
+</html>
