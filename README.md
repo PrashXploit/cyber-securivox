@@ -4,6 +4,19 @@
 
 Cyber Securivox is a comprehensive cybersecurity awareness and habit-building platform designed to help users develop daily digital safety practices and learn essential security skills.
 
+## 📁 Project Structure
+
+```text
+/
+├── index.html         # Main landing page
+├── pages/             # All secondary feature pages (Tracker, Scanner, Chatbot, etc.)
+├── assets/            # CSS styles and JavaScript files
+├── docs/              # Project documentation, diagrams, and PDFs
+├── scripts/           # Server launch scripts (Python, Node, PowerShell)
+├── start-server.bat   # Windows quick-launch script
+└── README.md          # This documentation file
+```
+
 ## 🌟 Features
 
 ### 🏠 **Home Page**
