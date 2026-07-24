@@ -1,21 +1,16 @@
-# 🛡️ Cyber Securivox - Cybersecurity Awareness Platform
+<div align="center">
+  <h1>🛡️ Cyber Securivox</h1>
+  <p><strong>Cybersecurity Awareness Platform &middot; Build Safe Habits. Stay Protected.</strong></p>
 
-**Build Safe Habits. Stay Protected.**
+  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+  [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+</div>
+
+<br />
 
 Cyber Securivox is a comprehensive cybersecurity awareness and habit-building platform designed to help users develop daily digital safety practices and learn essential security skills.
-
-## 📁 Project Structure
-
-```text
-/
-├── index.html         # Main landing page
-├── pages/             # All secondary feature pages (Tracker, Scanner, Chatbot, etc.)
-├── assets/            # CSS styles and JavaScript files
-├── docs/              # Project documentation, diagrams, and PDFs
-├── scripts/           # Server launch scripts (Python, Node, PowerShell)
-├── start-server.bat   # Windows quick-launch script
-└── README.md          # This documentation file
-```
 
 ## 🌟 Features
 
@@ -80,28 +75,20 @@ Cyber Securivox is a comprehensive cybersecurity awareness and habit-building pl
 
 ## 📁 Project Structure
 
-```
+```text
 cyber-securivox/
-├── index.html                 # Home page
-├── tracker.html              # Habit tracker
-├── link-checker.html         # Link security checker
-├── password-tester.html      # Password strength tester
-├── chatbot.html              # CyberCoach chatbot
-├── learn.html                # Learning center
-├── security-scanner.html     # Security scanner (bonus)
-├── start-server.bat          # Server launcher script
-├── README.md                 # This file
-└── assets/
-    ├── css/
-    │   └── style.css         # Custom styles and animations
-    └── js/
-        ├── main.js           # Core functionality
-        ├── tracker.js        # Habit tracking logic
-        ├── link-checker.js   # Link analysis
-        ├── password-tester.js # Password security
-        ├── chatbot.js        # Chatbot functionality
-        ├── learn.js          # Learning system
-        └── security-scanner.js # Security assessment
+├── index.html         # Main landing page
+├── pages/             # All secondary feature pages (Tracker, Scanner, Chatbot, etc.)
+├── assets/            # CSS styles and JavaScript files
+│   ├── css/
+│   │   └── style.css  # Custom styles and animations
+│   └── js/
+│       ├── main.js    # Core functionality
+│       └── ...        # Feature specific JS (tracker, link-checker, etc.)
+├── docs/              # Project documentation, diagrams, and PDFs
+├── scripts/           # Server launch scripts (Python, Node, PowerShell)
+├── start-server.bat   # Windows quick-launch script
+└── README.md          # This documentation file
 ```
 
 ## 🚀 Getting Started
@@ -135,33 +122,6 @@ cyber-securivox/
 - **Smooth Transitions** and micro-interactions
 - **Accessibility Features** including focus states and ARIA labels
 
-## 🔧 Key Features Explained
-
-### Habit Tracker
-- **7 Daily Habits**: Password checks, app permissions, spam cleanup, updates, backups, network security, social media privacy
-- **Progress Calculation**: Real-time percentage based on completed habits
-- **Streak System**: Tracks consecutive days with 80%+ completion
-- **Points System**: Each habit has different point values
-- **Data Persistence**: Uses localStorage to save progress
-
-### Link Checker
-- **Phishing Detection**: Checks for suspicious domains, keywords, and patterns
-- **URL Analysis**: Examines protocol, domain structure, and file extensions
-- **Risk Scoring**: Calculates risk based on multiple factors
-- **Educational Feedback**: Provides explanations for security warnings
-
-### Password Tester
-- **Strength Calculation**: Multi-factor analysis including length, complexity, entropy
-- **Common Password Detection**: Checks against database of weak passwords
-- **Pattern Recognition**: Identifies repeating and sequential characters
-- **Secure Generation**: Creates cryptographically strong passwords
-
-### CyberCoach
-- **Knowledge Base**: Comprehensive Q&A on cybersecurity topics
-- **Natural Language Processing**: Keyword matching for relevant responses
-- **Interactive Chat**: Real-time conversation with typing indicators
-- **Educational Content**: Formatted responses with actionable advice
-
 ## 📱 Mobile Responsiveness
 
 - **Mobile-First Design**: Optimized for smartphones and tablets
@@ -176,21 +136,6 @@ cyber-securivox/
 - **localStorage Only**: Data stays on your device
 - **No Tracking**: No analytics or tracking scripts
 
-## 🎯 Educational Value
-
-### Learning Objectives
-- **Password Security**: Understanding strong password creation and management
-- **Phishing Awareness**: Recognizing and avoiding email scams
-- **Browser Security**: Configuring safe browsing settings
-- **Network Safety**: Securing WiFi and understanding VPNs
-- **Privacy Protection**: Managing social media and app permissions
-
-### Skill Development
-- **Risk Assessment**: Learning to evaluate digital threats
-- **Security Habits**: Building consistent protective behaviors
-- **Incident Response**: Knowing what to do when things go wrong
-- **Tool Usage**: Familiarity with security software and services
-
 ## 🚀 Deployment Options
 
 ### GitHub Pages
@@ -202,10 +147,6 @@ cyber-securivox/
 1. Drag and drop the project folder to Netlify
 2. Get instant deployment with custom domain options
 
-### Local Network
-1. Run local server on your network
-2. Access from other devices using your IP address
-
 ## 🔮 Future Enhancements
 
 - **Dark Mode**: Toggle between light and dark themes
@@ -213,18 +154,14 @@ cyber-securivox/
 - **Advanced Analytics**: More detailed security metrics
 - **Gamification**: Badges, achievements, and leaderboards
 - **Export Features**: PDF reports and progress summaries
-- **Integration APIs**: Connect with password managers and security tools
 
 ## 📄 License
 
 This project is open source and available under the MIT License. Feel free to use, modify, and distribute as needed for educational purposes.
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
-
 ---
 
-**Built with ❤️ for digital safety education and awareness.**
-
-*Cyber Securivox - Building a safer digital world, one habit at a time.*
+<div align="center">
+  <b>Built with ❤️ for digital safety education and awareness.</b><br>
+  <i>Cyber Securivox - Building a safer digital world, one habit at a time.</i>
+</div>
