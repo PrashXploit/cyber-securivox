@@ -150,7 +150,6 @@ https://prashxploit.github.io/cyber-securivox/
 
 You can also explore the source code on GitHub: [cyber‑securivox](https://github.com/PrashXploit/cyber-securivox)
 
-![Demo screenshot](file:///C:/Users/prashanth/.gemini/antigravity/brain/cfb0b98a-e15a-4744-88d7-3cef???)
 
 ### Netlify
 1. Drag and drop the project folder to Netlify
