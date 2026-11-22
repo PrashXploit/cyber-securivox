@@ -143,6 +143,15 @@ cyber-securivox/
 2. Enable GitHub Pages in repository settings
 3. Access via `https://username.github.io/cyber-securivox`
 https://prashxploit.github.io/cyber-securivox/
+
+## 🚀 Running the App
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-blue)](https://prashxploit.github.io/cyber-securivox/)
+
+You can also explore the source code on GitHub: [cyber‑securivox](https://github.com/PrashXploit/cyber-securivox)
+
+![Demo screenshot](file:///C:/Users/prashanth/.gemini/antigravity/brain/cfb0b98a-e15a-4744-88d7-3cef???)
+
 ### Netlify
 1. Drag and drop the project folder to Netlify
 2. Get instant deployment with custom domain options
