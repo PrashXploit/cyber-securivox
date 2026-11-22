@@ -142,7 +142,7 @@ cyber-securivox/
 1. Upload files to GitHub repository
 2. Enable GitHub Pages in repository settings
 3. Access via `https://username.github.io/cyber-securivox`
-
+https://prashxploit.github.io/cyber-securivox/
 ### Netlify
 1. Drag and drop the project folder to Netlify
 2. Get instant deployment with custom domain options
